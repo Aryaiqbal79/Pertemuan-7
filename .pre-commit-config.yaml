@@ -1,0 +1,28 @@
+# Praktik 6: pre-commit hooks — black (format), isort (import), flake8 (lint)
+# Cara pakai:
+#   pip install pre-commit
+#   pre-commit install          # pasang hook ke .git/hooks/pre-commit
+#   pre-commit run --all-files  # jalankan manual ke semua file
+# Setiap `git commit` otomatis menjalankan ketiga hook di bawah ini.
+# Commit DITOLAK / file DIPERBAIKI otomatis bila ada pelanggaran standar.
+
+repos:
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+        args: [--line-length=79]
+        language_version: python3
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: [--profile=black, --line-length=79]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        args: [--max-line-length=79, --max-complexity=10]
+        additional_dependencies: [flake8-bugbear]
